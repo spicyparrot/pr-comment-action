@@ -1,0 +1,28 @@
+name: 📣 Test Shared Actions
+description: 'Runs tests for shared actions'
+
+runs:
+  using: "composite"
+  steps:
+    - name: 🛀 Checkout Self
+      uses: actions/checkout@v3
+      with:
+        path: code
+
+    - name: Comment File
+      shell: bash
+      id: comments
+      run: |
+        COMMENT_PATH=$(pwd)/temp_output.txt
+        echo "| X      | Y " > $COMMENT_PATH
+        echo "| ----------- | ----------- |" >> $COMMENT_PATH
+        echo "| 🍌      | 🙉      |" >> $COMMENT_PATH
+        echo "summary_path=${COMMENT_PATH}" >> $GITHUB_OUTPUT
+
+    - name: 💬 PR Comment
+      uses: ./code/.github/actions/pr_comment
+      with:
+        comment: "🤖 PR Comment Bot Test"
+        comment_path: ${{ steps.comments.outputs.summary_path }}
+        comment_id: "PR Comments"
+

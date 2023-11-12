@@ -1,0 +1,46 @@
+name: 🧪 Unit Testing
+
+concurrency:
+  group: ${{ github.ref_name }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:    
+    - '**'        # matches every branch
+    - '!trunk'    # excludes trunk and limit to branches used in pull requests
+
+env:
+  ENVIRONMENT: "ci"
+
+jobs:
+  test-code:
+    name: Unit Testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛀 Checkout Self
+        uses: actions/checkout@v3
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4.7.1
+        with:
+            python-version: '3.9'
+        
+      - name: 🏃‍♀️ Run Unit Tests
+        run: |
+            pip install -r ./src/requirements.txt
+
+  test-review:
+    name: Unit Test Review
+    needs: [test-code]
+    if: always()            
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🎌 Flag Test Failures
+        if: needs.test-code.result !='success'
+        uses: actions/github-script@v6.3.3
+        with:
+          script: core.setFailed("Unit tests are failing!❌😵☠")
+
+      - name: 🙌 Pass Unit Test
+        run: printf "${GREEN}Unit tests have passed! ✅"
