@@ -17,9 +17,6 @@ jobs:
   test-code:
     name: Unit Testing
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        stacks: [scoring]
     steps:
       - name: 🛀 Checkout Self
         uses: actions/checkout@v3
