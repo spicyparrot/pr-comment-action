@@ -28,7 +28,7 @@ jobs:
         
       - name: 🏃‍♀️ Run Unit Tests
         run: |
-            pip install -f ./src/requirements.txt
+            pip install -r ./src/requirements.txt
 
   test-review:
     name: Unit Test Review
