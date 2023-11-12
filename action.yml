@@ -1,0 +1,21 @@
+name: '💬 PR Comment'
+description: 'Adds a comment to a PR an ensure no duplicate messages'
+
+branding:
+  icon: "alert-circle"
+  color: "purple"
+inputs:
+  comment:
+    description: "Comment to be left on PR"
+    required: true
+  comment_path:
+    description: "Path to txt file to be parsed"
+    required: false
+  comment_id:
+    description: "Unique identifier for deduplicating comments"
+    default: "PR Comment Action"
+    required: false
+
+runs:
+  using: "docker"
+  image: "Dockerfile"

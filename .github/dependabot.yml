@@ -1,0 +1,89 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    open-pull-requests-limit: 3
+    target-branch: 'trunk'
+    rebase-strategy: "disabled"
+    schedule:
+      interval: 'weekly'
+    labels:
+      - 'dependencies'
+    commit-message:
+      prefix: 'deps: PKP-0000'
+    pull-request-branch-name:
+      separator: "-"
+    groups:
+      minor-versions:
+        update-types:
+        - "minor"
+        - "patch"
+      major-versions:
+        update-types:
+        - "major"
+      
+  - package-ecosystem: 'pip'
+    directory: '/'
+    open-pull-requests-limit: 3
+    target-branch: 'trunk'
+    rebase-strategy: "disabled"
+    schedule:
+      interval: 'weekly'
+    labels:
+      - 'dependencies'
+    commit-message:
+      prefix: 'deps: PKP-0000'
+    pull-request-branch-name:
+      separator: "-"
+    groups:
+      minor-versions:
+        update-types:
+        - "minor"
+        - "patch"
+      major-versions:
+        update-types:
+        - "major"
+
+  - package-ecosystem: 'docker'
+    directory: '/build/images/'
+    open-pull-requests-limit: 3
+    target-branch: 'trunk'
+    rebase-strategy: "disabled"
+    schedule:
+      interval: 'weekly'
+    labels:
+      - 'dependencies'
+    commit-message:
+      prefix: 'deps: PKP-0000'
+    pull-request-branch-name:
+      separator: "-"
+    groups:
+      minor-versions:
+        update-types:
+        - "minor"
+        - "patch"
+      major-versions:
+        update-types:
+        - "major"
+
+  - package-ecosystem: 'maven'
+    directory: '/'
+    open-pull-requests-limit: 3
+    target-branch: 'trunk'
+    rebase-strategy: "disabled"
+    schedule:
+      interval: 'weekly'
+    labels:
+      - 'dependencies'
+    commit-message:
+      prefix: 'deps: PKP-0000'
+    pull-request-branch-name:
+      separator: "-"
+    groups:
+      minor-versions:
+        update-types:
+        - "minor"
+        - "patch"
+      major-versions:
+        update-types:
+        - "major"
