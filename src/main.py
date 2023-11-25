@@ -12,6 +12,7 @@ def get_event_info(event_path):
     """
     Parse the github event file ($GITHUB_EVENT_PATH)
     """
+    print(f"Parsing event file: {event_path}")
     event_file = open(event_path)
     event = json.load(event_file)
     info = {}
@@ -19,31 +20,33 @@ def get_event_info(event_path):
     # Exit early if not a branch associated/PR
     if 'ref' not in list(event.keys()):
         print("No branch found for event")
-        sys.exit()
+        return {}
     # Branch info
     info['branch_ref'] = event['ref']
     info['branch_name'] = info['branch_ref'].split('refs/heads/')[-1]
     info['branch_label'] = info['org'] + ':' + info['branch_name']
     info['repo_name'] = 
+    return info
 
 
-def get_branch_prs(token):
-    token = os.getenv('GITHUB_TOKEN')
-    if token is None:
-        token = os.getenv('ACTIONS_RUNTIME_TOKEN')
-    
+def get_branch_pr(repo_name,token):
+    """
+    Return the PR objeects associated with the branch
+    """
+    print(f"Getting associated PRs: {repo_name}")
     gh = Github(token)
     repo = gh.get_repo(repo_name)
     prs = repo.get_pulls(state='open', sort='created', head=branch_label)
-    return prs
+    pr = prs[0]
+    print(f"Associated PR: {len(prs)}")
+    return pr
 
 ### Only able comment if valid pull request is available
 if prs.totalCount == 0:
     print("No PR found for branch - " + str(branch_label))
     sys.exit()
 
-### Go through all existing issue comments
-pr = prs[0]
+### Go through all existing issue comments (TODO - get the latest PR only)
 comment_id = os.environ["INPUT_COMMENT_ID"]
 comment_tag = f"[comment]: <> ({comment_id})"
 comment_tag = comment_tag + "\n\n"   #This ensures the comment is hidden
@@ -81,5 +84,8 @@ else:
 
 if __name__ == "__main__":
     event_path = os.getenv('GITHUB_EVENT_PATH')
-    repo = os.environ["GITHUB_REPOSITORY"]
+    repo = os.getenv["GITHUB_REPOSITORY"]
+    token = os.getenv('GITHUB_TOKEN')
+    comment_id = os.getenv["INPUT_COMMENT_ID"]
+    
     pr_comment(event_path)
