@@ -1,0 +1,13 @@
+build
+!build/lib
+!build/config
+
+tests/data
+tests/temp
+
+node_modules
+**__pycache__**
+secrets
+docs
+.github
+.vscode

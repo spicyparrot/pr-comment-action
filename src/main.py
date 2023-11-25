@@ -4,7 +4,7 @@ import json
 import pandas as pd
 from github import Github
 
-### Get Event Info - https://pygithub.readthedocs.io/en/latest/github_objects/PullRequest.html / https://github.com/harupy/comment-on-pr/blob/master/entrypoint.py
+### Get Event Info - https://pygithub.readthedocs.io/en/latest/github_objects/PullRequest.html
 event_file = open(os.getenv('GITHUB_EVENT_PATH'))
 event = json.load(event_file)
 org = event['organization']['login']

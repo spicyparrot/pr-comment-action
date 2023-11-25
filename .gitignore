@@ -1,0 +1,18 @@
+**/.vagrant
+# Developers using a mac
+**/.DS_Store
+
+# env files
+**/.env
+
+# Python
+**/*.ipynb_checkpoints
+**/*__pycache__
+
+# Scanning
+**/.scannerwork
+
+# Access keys
+**.pem
+**.ppk
+**/secrets

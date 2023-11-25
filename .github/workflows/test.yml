@@ -30,6 +30,13 @@ jobs:
         run: |
             pip install -r ./src/requirements.txt
 
+      - name: 🐛 Debugger
+        #if: ${{ failure() }}
+        timeout-minutes: 20 
+        uses: mxschmitt/action-tmate@v3.17
+        with:
+          limit-access-to-actor: true
+
   test-review:
     name: Unit Test Review
     needs: [test-code]
