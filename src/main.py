@@ -4,29 +4,38 @@ import json
 import pandas as pd
 from github import Github
 
-### Get Event Info - https://pygithub.readthedocs.io/en/latest/github_objects/PullRequest.html
-event_file = open(os.getenv('GITHUB_EVENT_PATH'))
-event = json.load(event_file)
-org = event['organization']['login']
 
-# Exit early if not a branch associated/PR
-if 'ref' not in list(event.keys()):
-    print("No branch found for event")
-    sys.exit()
+#=============================================================================#
+# Get Event Info
+#=============================================================================#
+def get_event_info(event_path):
+    """
+    Parse the github event file ($GITHUB_EVENT_PATH)
+    """
+    event_file = open(event_path)
+    event = json.load(event_file)
+    info = {}
+    info['org'] = event['organization']['login']
+    # Exit early if not a branch associated/PR
+    if 'ref' not in list(event.keys()):
+        print("No branch found for event")
+        sys.exit()
+    # Branch info
+    info['branch_ref'] = event['ref']
+    info['branch_name'] = info['branch_ref'].split('refs/heads/')[-1]
+    info['branch_label'] = info['org'] + ':' + info['branch_name']
+    info['repo_name'] = 
 
-branch_ref = event['ref']
-branch_name = branch_ref.split('refs/heads/')[-1]
-branch_label = org + ':' + branch_name
-repo_name = os.environ["GITHUB_REPOSITORY"]
 
-### Setup GitHub Class
-token = os.getenv('GITHUB_TOKEN')
-if token is None:
-    token = os.getenv('ACTIONS_RUNTIME_TOKEN')
+def get_branch_prs(token):
+    token = os.getenv('GITHUB_TOKEN')
+    if token is None:
+        token = os.getenv('ACTIONS_RUNTIME_TOKEN')
     
-gh = Github(token)
-repo = gh.get_repo(repo_name)
-prs = repo.get_pulls(state='open', sort='created', head=branch_label)
+    gh = Github(token)
+    repo = gh.get_repo(repo_name)
+    prs = repo.get_pulls(state='open', sort='created', head=branch_label)
+    return prs
 
 ### Only able comment if valid pull request is available
 if prs.totalCount == 0:
@@ -68,3 +77,9 @@ else:
     issue = repo.get_issue(pr.number)
     existing_comment = issue.get_comment(comment_id)
     existing_comment.edit(new_comment)
+
+
+if __name__ == "__main__":
+    event_path = os.getenv('GITHUB_EVENT_PATH')
+    repo = os.environ["GITHUB_REPOSITORY"]
+    pr_comment(event_path)
