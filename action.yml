@@ -1,5 +1,5 @@
 name: '💬 PR Comment'
-description: 'Adds a comment to a PR an ensures no duplicate messages'
+description: 'Adds a comment to a PR and ensures no duplicate messages'
 
 branding:
   icon: "alert-circle"
