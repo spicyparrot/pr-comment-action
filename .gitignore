@@ -8,6 +8,11 @@
 # Python
 **/*.ipynb_checkpoints
 **/*__pycache__
+env
+env/**
+
+./tests/reports
+
 
 # Scanning
 **/.scannerwork
