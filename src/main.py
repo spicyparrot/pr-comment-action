@@ -28,7 +28,8 @@ def get_event_info(event_path):
     info['branch_ref'] = event['ref']
     info['branch_name'] = info['branch_ref'].split('refs/heads/')[-1]
     info['branch_label'] = info['org'] + ':' + info['branch_name']
-    info['repo_name'] = 'TEST'
+    info['repo_name'] = event['repository']['name']
+    info['repo_full_name'] = event['repository']['full_name']
     return info
 
 
