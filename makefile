@@ -26,9 +26,10 @@ cov:
 		--log-cli-level=INFO \
 		--cov=./src \
 		--cov-report=term-missing:skip-covered \
+		--cov-report=html:./tests/reports/coverage.html \
 		--cov-report=xml:./tests/reports/coverage.xml \
-		--cov-report=html:./tests/reports/coverage.html
-
+		--junitxml=./tests/reports/pytest.xml
+		
 coverage:
 	coverage run -m  \
 		pytest ./tests/test.py \
@@ -42,10 +43,7 @@ run:
 #pytest ./tests/test_pykx.py --log-cli-level=INFO --cov=./src/kdb --cov-report=xml:./secrets/coverage.xml --cov-report=html:./secrets/coverage.html
 
 #--junitxml=/pixel/test_results/pytest.xml \
-
 #bash -c 'set -o pipefail && pytest --exitfirst tests/test.py -v --log-cli-level=INFO --junitxml=/pixel/test_results/pytest.xml --cov-report=term-missing:skip-covered --cov-report=xml:./coverage.xml --cov=main --timeout=90 | tee /tmp/test_reports/test.txt /pixel/test_results/pytest-coverage.txt && coverage xml -i && mv coverage.xml /pixel/test_results/'
 #--junitxml=/pixel/test_results/pytest.xml
-#--cov-report=term-missing:skip-covered 
-#--cov-report=xml:./coverage.xml 
 #--cov=main 
 #--timeout=90 | tee /tmp/test_reports/test.txt /pixel/test_results/pytest-coverage.txt && coverage xml -i && mv coverage.xml /pixel/test_results/'

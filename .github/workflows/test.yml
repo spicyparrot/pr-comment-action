@@ -52,16 +52,16 @@ jobs:
           args: >
             -Dsonar.organization=spicyparrot
             -Dsonar.projectKey=spicyparrot_pr-comment
-            -Dsonar.source=src
+            -Dsonar.source=./src
             -Dsonar.python.coverage.reportPaths=./tests/reports/coverage.xml
             -Dsonar.sourceEncoding=UTF-8
 
-      - name: 🐛 Debugger
-        if: ${{ failure() }}
-        timeout-minutes: 20 
-        uses: mxschmitt/action-tmate@v3.17
-        with:
-          limit-access-to-actor: false
+      #- name: 🐛 Debugger
+      #  if: ${{ failure() }}
+      #  timeout-minutes: 20 
+      #  uses: mxschmitt/action-tmate@v3.17
+      #  with:
+      #    limit-access-to-actor: false
 
   test-review:
     name: Unit Test Review
