@@ -35,5 +35,5 @@ cov:
 			--md ./tests/reports/pytest.md \
 			--junitxml=./tests/reports/pytest.xml
 
-	coverage xml -o ./tests/reports/coverage.xml
+	coverage xml --include "src/*" -o ./tests/reports/coverage.xml
 	coverage html --include "src/*" --directory ./tests/reports/coverage_html
