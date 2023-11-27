@@ -19,11 +19,7 @@ test:
 		--log-cli-level=INFO \
 		--emoji -v \
 		--html=./tests/reports/pr_comment.html \
-		--md ./tests/reports/pr_comment.md
-
-pycov:
-	pytest ./tests/test.py \
-		--log-cli-level=INFO \
+		--md ./tests/reports/pr_comment.md \
 		--cov=./src \
 		--cov-report=term-missing:skip-covered \
 		--cov-report=html:./tests/reports/coverage.html \
