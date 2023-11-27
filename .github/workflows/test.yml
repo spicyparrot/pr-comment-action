@@ -59,9 +59,10 @@ jobs:
             -Dsonar.organization=spicyparrot
             -Dsonar.projectKey=spicyparrot_pr-comment
             -Dsonar.source=./src
-            #-Dsonar.python.coverage.reportPaths=./tests/reports/coverage.xml
+           
             -Dsonar.sourceEncoding=UTF-8
 
+      #-Dsonar.python.coverage.reportPaths=./tests/reports/coverage.xml
       #- name: 🐛 Debugger
       #  if: ${{ failure() }}
       #  timeout-minutes: 20 
