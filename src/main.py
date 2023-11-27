@@ -78,7 +78,7 @@ def get_comment_id(pull_request,comment_uid):
     return github_id
 
 
-def parse_comment(comment_uid, comment, comment_file):
+def gen_comment(comment_uid, comment, comment_file):
     """
     Creates/Edits comment on a PR 
     """
@@ -99,7 +99,7 @@ def put_comment(token, event_path, comment_uid, comment, comment_file):
     info = get_event_info(event_path)
     pr = get_branch_pr(info['repo_name'],token)
     id = get_comment_id(pr,comment_uid)
-    new_comment = parse_comment(comment_uid, comment, comment_file)
+    new_comment = gen_comment(comment_uid, comment, comment_file)
     if id==0:
         print("No existing comment found. Adding new comment")
         pr.create_issue_comment(new_comment)

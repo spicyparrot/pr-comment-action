@@ -15,7 +15,7 @@ deps:
 		pytest-emoji
 
 test:
-	pytest ./tests/test.py \
+	pytest ./tests/test_app.py \
 		--log-cli-level=INFO \
 		--emoji -v \
 		--html=./tests/reports/pytest.html \
@@ -28,7 +28,7 @@ test:
 
 cov:
 	coverage run -m  \
-		pytest ./tests/test.py \
+		pytest ./tests/test_app.py \
 			--log-cli-level=INFO \
 			--emoji -v \
 			--html=./tests/reports/pytest.html \
