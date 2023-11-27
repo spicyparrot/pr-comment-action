@@ -59,13 +59,13 @@ jobs:
             -Dsonar.sources=./src
             -Dsonar.python.coverage.reportPaths=./tests/reports/coverage.xml
             -Dsonar.coverage.exclusions=./tests/*
-          
-      #- name: 🐛 Debugger
-      #  if: ${{ failure() }}
-      #  timeout-minutes: 20 
-      #  uses: mxschmitt/action-tmate@v3.17
-      #  with:
-      #    limit-access-to-actor: false
+
+      - name: 🐛 Debugger
+        #if: ${{ failure() }}
+        timeout-minutes: 20 
+        uses: mxschmitt/action-tmate@v3.17
+        with:
+          limit-access-to-actor: false
 
   test-review:
     name: Unit Test Review

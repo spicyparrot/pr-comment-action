@@ -6,6 +6,7 @@
 
 ```bash
 export SONAR_TOKEN=<TOKEN>
+export BRANCH=testing-setup
 sonar-scanner \
   -Dsonar.organization=spicyparrot \
   -Dsonar.projectKey=spicyparrot_pr-comment \
@@ -13,6 +14,7 @@ sonar-scanner \
   -Dsonar.host.url=https://sonarcloud.io \
   -Dsonar.sources=./src \
   -Dsonar.python.coverage.reportPaths=tests/reports/coverage.xml \
-  -Dsonar.coverage.exclusions=tests/*
+  -Dsonar.coverage.exclusions=tests/* \
+  -Dsonar.branch.name=${BRANCH}
 ```
 
