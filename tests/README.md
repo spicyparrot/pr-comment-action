@@ -13,8 +13,8 @@ sonar-scanner \
   -Dsonar.sourceEncoding=UTF-8 \
   -Dsonar.host.url=https://sonarcloud.io \
   -Dsonar.sources=./src \
-  -Dsonar.python.coverage.reportPaths=tests/reports/coverage.xml \
-  -Dsonar.coverage.exclusions=tests/* \
+  -Dsonar.python.coverage.reportPaths=./tests/reports/coverage.xml \
+  -Dsonar.coverage.exclusions=./tests/* \
   -Dsonar.branch.name=${BRANCH}
 ```
 
