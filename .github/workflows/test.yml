@@ -41,16 +41,19 @@ jobs:
           name: 👨‍🔬 Results
           path: ./tests/reports/*
 
+
+      # TODO - infer this from pipeline variables
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
             -Dsonar.organization=spicyparrot
             -Dsonar.projectKey=spicyparrot_pr-comment
             -Dsonar.python.coverage.reportPaths=./tests/reports/coverage.xml
+            -Dsonar.sourceEncoding=UTF-8
 
       - name: 🐛 Debugger
         if: ${{ failure() }}
