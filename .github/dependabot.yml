@@ -10,7 +10,7 @@ updates:
     labels:
       - 'dependencies'
     commit-message:
-      prefix: 'deps: PKP-0000'
+      prefix: 'deps:'
     pull-request-branch-name:
       separator: "-"
     groups:
@@ -32,7 +32,7 @@ updates:
     labels:
       - 'dependencies'
     commit-message:
-      prefix: 'deps: PKP-0000'
+      prefix: 'deps:'
     pull-request-branch-name:
       separator: "-"
     groups:
@@ -54,7 +54,7 @@ updates:
     labels:
       - 'dependencies'
     commit-message:
-      prefix: 'deps: PKP-0000'
+      prefix: 'deps:'
     pull-request-branch-name:
       separator: "-"
     groups:
@@ -76,7 +76,7 @@ updates:
     labels:
       - 'dependencies'
     commit-message:
-      prefix: 'deps: PKP-0000'
+      prefix: 'deps:'
     pull-request-branch-name:
       separator: "-"
     groups:
