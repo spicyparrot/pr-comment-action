@@ -11,11 +11,11 @@
 env
 env/**
 
-./tests/reports
-
-
 # Scanning
 **/.scannerwork
+./tests/reports
+.coverage
+coverage.xml
 
 # Access keys
 **.pem

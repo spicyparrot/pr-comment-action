@@ -33,9 +33,6 @@ cov:
 			--emoji -v \
 			--html=./tests/reports/pr_comment.html \
 			--md ./tests/reports/pr_comment.md \
-			--cov=./src \
-			--cov-report=term-missing:skip-covered \
-			--cov-report=html:./tests/reports/coverage.html \
 			--junitxml=./tests/reports/pytest.xml
 	coverage xml
 		
