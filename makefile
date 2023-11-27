@@ -36,4 +36,4 @@ cov:
 			--junitxml=./tests/reports/pytest.xml
 
 	coverage xml -o ./tests/reports/coverage.xml
-	coverage html --directory ./tests/reports/coverage_html
+	coverage html --include "src/*" --directory ./tests/reports/coverage_html
