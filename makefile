@@ -34,6 +34,6 @@ cov:
 			--html=./tests/reports/pytest.html \
 			--md ./tests/reports/pytest.md \
 			--junitxml=./tests/reports/pytest.xml
-			
+
 	coverage xml -o ./tests/reports/coverage.xml
-	coverage html -o ./tests/reports/coverage.html
+	coverage html --directory ./tests/reports/coverage_html
