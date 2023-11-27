@@ -42,10 +42,10 @@ jobs:
           path: ./tests/reports/*
 
 
-      - name: Hack files (https://community.sonarsource.com/t/codecoverage-not-showing-in-sonarcloud-in-a-python-project/53298/3)
-        run: |
-          mkdir -p coverage-reports
-          mv ./tests/reports/coverage.xml ./coverage-reports/coverage.xml
+      #- name: Hack files (https://community.sonarsource.com/t/codecoverage-not-showing-in-sonarcloud-in-a-python-project/53298/3)
+      #  run: |
+      #    mkdir -p coverage-reports
+      #    mv ./tests/reports/coverage.xml ./coverage-reports/coverage.xml
 
 
       # TODO - infer this from pipeline variables
