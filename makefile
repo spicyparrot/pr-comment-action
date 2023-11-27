@@ -29,7 +29,14 @@ test:
 cov:
 	coverage run -m  \
 		pytest ./tests/test.py \
-			--log-cli-level=INFO
+			--log-cli-level=INFO \
+			--emoji -v \
+			--html=./tests/reports/pr_comment.html \
+			--md ./tests/reports/pr_comment.md \
+			--cov=./src \
+			--cov-report=term-missing:skip-covered \
+			--cov-report=html:./tests/reports/coverage.html \
+			--junitxml=./tests/reports/pytest.xml
 	coverage xml
 		
 cov-scan:
