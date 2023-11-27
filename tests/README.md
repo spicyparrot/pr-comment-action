@@ -2,6 +2,8 @@
 
 ## Sonar Cloud
 
+### CLI Testing
+
 ```bash
 export SONAR_TOKEN=<TOKEN>
 sonar-scanner \
