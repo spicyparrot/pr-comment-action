@@ -21,7 +21,7 @@ test:
 		--html=./tests/reports/pr_comment.html \
 		--md ./tests/reports/pr_comment.md
 
-cov:
+pycov:
 	pytest ./tests/test.py \
 		--log-cli-level=INFO \
 		--cov=./src \
@@ -29,6 +29,12 @@ cov:
 		--cov-report=html:./tests/reports/coverage.html \
 		--cov-report=xml:./tests/reports/coverage.xml \
 		--junitxml=./tests/reports/pytest.xml
+
+cov:
+	coverage run -m  \
+		pytest ./tests/test.py \
+			--log-cli-level=INFO
+	coverage xml
 		
 cov-scan:
 	sonar-scanner \
@@ -40,14 +46,6 @@ cov-scan:
 		-Dsonar.python.coverage.reportPaths=./tests/reports/coverage.xml \
 		-Dsonar.coverage.exclusions=./tests/*
 		
-coverage:
-	coverage run -m  \
-		pytest ./tests/test.py \
-			--log-cli-level=INFO
-
-run:
-	python3.9 ./src/main.py
-
 
 
 #pytest ./tests/test_pykx.py --log-cli-level=INFO --cov=./src/kdb --cov-report=xml:./secrets/coverage.xml --cov-report=html:./secrets/coverage.html

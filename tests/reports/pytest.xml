@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="1.070" timestamp="2023-11-26T21:32:58.155443" hostname="LPPHL-4JZ3QQ2"><testcase classname="tests.test" name="test_get_event_info" time="0.002" /></testsuite></testsuites>
