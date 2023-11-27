@@ -21,9 +21,10 @@ from main import get_event_info, get_comment_tag, gen_comment
 #=============================================================================#
 EVENT_PATH_VALID=f"{SCRIPT_DIRECTORY}/data/pr_event.json"
 EVENT_PATH_INVALID=f"{SCRIPT_DIRECTORY}/data/non_pr_event.json"
+COMMENT_FILE = f"{SCRIPT_DIRECTORY}/data/comment.md"
 COMMENT = 'Well. Hello there'
 COMMENT_ID = random.randint(0, 10000)
-COMMENT_FILE = ''
+
 
 # TODO - create test PR from test branch
 
@@ -48,8 +49,16 @@ def test_get_comment_tag():
     assert hidden, "Invalid comment tag generated"
 
 
-def test_parse_comment():
+def test_parse_comment_text_only():
     comment = gen_comment(COMMENT_ID, COMMENT, '')
     hidden = comment.startswith('[comment]:')
     text_present = comment.endswith(COMMENT)
     assert all([hidden,text_present]), "Invalid comment generated"
+
+
+def test_parse_comment_text_and_file():
+    comment = gen_comment(COMMENT_ID, COMMENT, COMMENT_FILE)
+    hidden = comment.startswith('[comment]:')
+    text_present = COMMENT in comment
+    file_parsed = comment.endswith('|')
+    assert all([hidden,text_present,file_parsed]), "Invalid comment generated"
