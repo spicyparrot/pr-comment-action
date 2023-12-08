@@ -10,13 +10,10 @@ env.local: deps.code
 deps.local: test.hooks
 	mkdir -p $(TEST_REPORTS_DIR)
 	pip install -r $(TEST_SOURCE_DIR)/requirements.txt
-	bash test_data.sh --env local
 
 deps.ci: 
 	mkdir -p $(TEST_REPORTS_DIR)
 	pip install -r $(TEST_SOURCE_DIR)/requirements.txt
-	bash -c "set -a && source .env && set +a"
-	bash test_data.sh --env local
 	
 deps.test:
 	pip install \
