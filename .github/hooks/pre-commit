@@ -1,0 +1,9 @@
+#!/bin/bash
+
+CODE_CHANGES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '.py|src|tests'| wc -l)
+echo "${CODE_CHANGES} code change(s) made"
+
+if [ ${CODE_CHANGES} -gt 0 ]; then
+    echo "Code changes added. Running tests locally:"
+    make test.cov
+fi
