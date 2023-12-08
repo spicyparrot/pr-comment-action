@@ -1,4 +1,4 @@
-name: 🧪 Unit Testing
+name: 🧪 Testing
 
 concurrency:
   group: ${{ github.ref_name }}
@@ -8,7 +8,6 @@ on:
   push:
     branches:    
     - '**'        # matches every branch
-    - '!trunk'    # excludes trunk and limit to branches used in pull requests
 
 env:
   ENVIRONMENT: "ci"
@@ -21,26 +20,31 @@ jobs:
       - name: 🛀 Checkout Self
         uses: actions/checkout@v3
 
-      - name: 🐍 Setup Python
+      - name: 🐍 Install Python
         uses: actions/setup-python@v4.7.1
         with:
             python-version: '3.9'
+
+      - name: 📦 Install Packages
+        run: make deps.ci
+
+      - name:  📑 Linting
+        run: make test.lint
         
-      - name: 🏃‍♀️ Run Unit Tests
+      - name: 🏃‍♀️ Run Tests
         run: |
-            pip install -r ./src/requirements.txt
+            make test.cov
 
-  test-review:
-    name: Unit Test Review
-    needs: [test-code]
-    if: always()            
-    runs-on: ubuntu-latest
-    steps:
-      - name: 🎌 Flag Test Failures
-        if: needs.test-code.result !='success'
-        uses: actions/github-script@v6.3.3
+      - name: 📠 SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: ⬆ Upload Reports
+        uses: actions/upload-artifact@v3.1.2
+        if: always()
         with:
-          script: core.setFailed("Unit tests are failing!❌😵☠")
-
-      - name: 🙌 Pass Unit Test
-        run: printf "${GREEN}Unit tests have passed! ✅"
+          name: 👩‍🔬 Test Results
+          path:  |
+            ./tests/reports/*

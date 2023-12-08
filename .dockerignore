@@ -1,0 +1,22 @@
+# Unneeded
+.github
+.vscode
+docs
+
+# Access keys & Secrets
+.env
+**/secrets
+**.pem
+**.ppk
+
+# Test Data
+tests/data
+tests/temp
+tests/reports
+
+# Python
+**/*.ipynb_checkpoints
+**__pycache__**
+**/.pytest_cache
+**.coverage
+

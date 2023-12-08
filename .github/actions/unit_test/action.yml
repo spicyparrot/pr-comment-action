@@ -1,0 +1,11 @@
+name: Unit Tests
+description: 'Runs tests for shared actions'
+
+runs:
+  using: "composite"
+  steps:
+    - name: 🛀 Checkout Self
+      uses: actions/checkout@v3
+      with:
+        path: code
+
