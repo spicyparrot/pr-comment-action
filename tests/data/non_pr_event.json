@@ -1,0 +1,16 @@
+{
+    "organization": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/76759884?v=4",
+        "description": "",
+        "events_url": "https://api.github.com/orgs/spicyparrot/events",
+        "hooks_url": "https://api.github.com/orgs/spicyparrot/hooks",
+        "id": 76759884,
+        "issues_url": "https://api.github.com/orgs/spicyparrot/issues",
+        "login": "spicyparrot",
+        "members_url": "https://api.github.com/orgs/spicyparrot/members{/member}",
+        "node_id": "MDEyOk9yZ2FuaXphdGlvbjc2NzU5ODg0",
+        "public_members_url": "https://api.github.com/orgs/spicyparrot/public_members{/member}",
+        "repos_url": "https://api.github.com/orgs/spicyparrot/repos",
+        "url": "https://api.github.com/orgs/spicyparrot"
+    }
+}
