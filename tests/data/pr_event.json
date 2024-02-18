@@ -15,7 +15,7 @@
         "url": "https://api.github.com/orgs/spicyparrot"
     },
     "repository":{
-        "name": "pr-comment",
-        "full_name": "spicyparrot/pr-comment"
+        "name": "pr-comment-action",
+        "full_name": "spicyparrot/pr-comment-action"
     }
 }

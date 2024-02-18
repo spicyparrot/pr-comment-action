@@ -11,6 +11,67 @@ sys.path.insert(0,  os.path.abspath(f'{SCRIPT_DIRECTORY}/../src'))
 #=============================================================================#
 # Get Event Info
 #=============================================================================#
+def get_comment_tag(comment_uid):
+    """
+    Returns the hidden tag used to identify comment uniqueness
+    """
+    comment_tag = f"[comment]: <> ({comment_uid})"       # This ensures the comment is hidden
+    comment_tag = comment_tag + "\n\n"
+    return comment_tag
+
+
+def gen_comment(comment_uid, comment, comment_file):
+    """
+    Creates/Edits comment on a PR 
+    """
+    comment_tag = get_comment_tag(comment_uid)
+    new_comment = comment_tag + comment
+    # Optionally get comment for a text file
+    if len(comment_file) > 0:
+        print("Comment file specified - " + str(comment_file))
+        with open(comment_file, 'r') as file:
+            data = file.read()
+            new_comment = new_comment  + "\n\n" + data
+
+    return new_comment
+
+
+def get_comment_id(pull_request,comment_uid):
+    """
+    Get the comment id for 
+    """
+    comment_tag = get_comment_tag(comment_uid)
+    comments = pull_request.get_issue_comments()
+    comment_strings = [c.body for c in pull_request.get_issue_comments()]
+    indexes = range(0, len(comment_strings))
+    # Check for existing comments
+    github_id = 0
+    for i in indexes:
+        text = comments[i].body
+        if text.startswith(comment_tag):
+            github_id = comments[i].id
+            print("Duplicate comment found - " + str(comment_id))
+
+    return github_id
+
+
+def get_branch_pr(repo_name:str, token:str):
+    """
+    Return the PR objeects associated with the branch
+    """
+    print(f"Getting associated PRs: {repo_name}")
+    gh = Github(token)
+    repo = gh.get_repo(repo_name)
+    prs = repo.get_pulls(state='open', sort='created', head=branch_label)
+    print(f"Associated PR: {len(prs)}")
+    ### Only able comment if valid pull request is available
+    if prs.totalCount == 0:
+        print("No PR found for branch - " + str(branch_label))
+        sys.exit()
+    pr = prs[0]
+    return pr
+
+
 def get_event_info(event_path):
     """
     Parse the github event file ($GITHUB_EVENT_PATH)
@@ -33,69 +94,10 @@ def get_event_info(event_path):
     return info
 
 
-def get_branch_pr(repo_name,token):
+def put_comment(token:str , event_path:str, comment_uid:str, comment:str, comment_file:str)-> bool:
     """
-    Return the PR objeects associated with the branch
+
     """
-    print(f"Getting associated PRs: {repo_name}")
-    gh = Github(token)
-    repo = gh.get_repo(repo_name)
-    prs = repo.get_pulls(state='open', sort='created', head=branch_label)
-    print(f"Associated PR: {len(prs)}")
-    ### Only able comment if valid pull request is available
-    if prs.totalCount == 0:
-        print("No PR found for branch - " + str(branch_label))
-        sys.exit()
-    pr = prs[0]
-    return pr
-
-
-def get_comment_tag(comment_uid):
-    """
-    Returns the hidden tag used to identify comment uniqueness
-    """
-    comment_tag = f"[comment]: <> ({comment_uid})"       # This ensures the comment is hidden
-    comment_tag = comment_tag + "\n\n"
-    return comment_tag
-
-
-def get_comment_id(pull_request,comment_uid):
-    """
-    Get the comment id for 
-    """
-    comment_tag = get_comment_tag(comment_uid)
-    comments = pull_request.get_issue_comments()
-    comment_strings = [c.body for c in pull_request.get_issue_comments()]
-    indexes = range(0, len(comment_strings))
-    # Check for existing comments
-    github_id = 0
-    for i in indexes:
-        text = comments[i].body
-        if text.startswith(comment_tag):
-            github_id = comments[i].id
-            print("Duplicate comment found - " + str(comment_id))
-
-    return github_id
-
-
-def gen_comment(comment_uid, comment, comment_file):
-    """
-    Creates/Edits comment on a PR 
-    """
-    comment_tag = get_comment_tag(comment_uid)
-    new_comment = comment_tag + comment
-
-    # Optionally get comment for a text file
-    if len(comment_file) > 0:
-        print("Comment file specified - " + str(comment_file))
-        with open(comment_file, 'r') as file:
-            data = file.read()
-            new_comment = new_comment  + "\n\n" + data
-
-    return new_comment
-
-
-def put_comment(token, event_path, comment_uid, comment, comment_file):
     info = get_event_info(event_path)
     pr = get_branch_pr(info['repo_name'],token)
     id = get_comment_id(pr,comment_uid)
@@ -108,6 +110,7 @@ def put_comment(token, event_path, comment_uid, comment, comment_file):
         issue = repo.get_issue(pr.number)
         existing_comment = issue.get_comment(id)
         existing_comment.edit(new_comment)
+    return True
 
 
 #=============================================================================#
@@ -133,6 +136,8 @@ def github_action_handler():
     put_comment(token, event_path, comment_uid, comment, comment_path)
     return True
 
-
+#=============================================================================#
+# Script entrypoint
+#=============================================================================#
 if __name__ == "__main__":
     github_action_handler()
