@@ -135,9 +135,4 @@ def github_action_handler():
 
 
 if __name__ == "__main__":
-    test_dir = os.path.abspath(f'{SCRIPT_DIRECTORY}/../tests/data')
-    event_path = test_dir + '/pr_event.json'
-    token = os.getenv('GITHUB_TOKEN')
-    comment = 'Well hello there'
-    comment_uid = 'test_comment_1'
-    comment_path = test_dir + '/comment.txt'
+    github_action_handler()
