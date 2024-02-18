@@ -16,7 +16,7 @@ deps.ci:
 	pip install --quiet -r $(TEST_SOURCE_DIR)/requirements.txt
 	
 deps.test:
-	pip install -quiet \
+	pip install --quiet \
 		pytest==7.4.0 \
 		pylint==3.0.2 \
 		pylint-json2html==0.5.0 \
