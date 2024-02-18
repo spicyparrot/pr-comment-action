@@ -9,14 +9,14 @@ env.local: deps.code
 
 deps.local: test.hooks
 	mkdir -p $(TEST_REPORTS_DIR)
-	pip install -r $(TEST_SOURCE_DIR)/requirements.txt
+	pip install -quiet -r $(TEST_SOURCE_DIR)/requirements.txt
 
 deps.ci: 
 	mkdir -p $(TEST_REPORTS_DIR)
-	pip install -r $(TEST_SOURCE_DIR)/requirements.txt
+	pip install --quiet -r $(TEST_SOURCE_DIR)/requirements.txt
 	
 deps.test:
-	pip install \
+	pip install -quiet \
 		pytest==7.4.0 \
 		pylint==3.0.2 \
 		pylint-json2html==0.5.0 \
