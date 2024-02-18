@@ -9,7 +9,7 @@ env.local: deps.code
 
 deps.local: test.hooks
 	mkdir -p $(TEST_REPORTS_DIR)
-	pip install -quiet -r $(TEST_SOURCE_DIR)/requirements.txt
+	pip install --quiet -r $(TEST_SOURCE_DIR)/requirements.txt
 
 deps.ci: 
 	mkdir -p $(TEST_REPORTS_DIR)

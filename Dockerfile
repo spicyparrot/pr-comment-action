@@ -5,7 +5,7 @@ FROM python:3.10-slim AS builder
 WORKDIR /app
 ADD src src
 
-RUN python3 -m pip install -quiet -r ./src/requirements.txt
+RUN python3 -m pip install --quiet -r ./src/requirements.txt
 
 # Start command
 ENTRYPOINT ["python3"]
