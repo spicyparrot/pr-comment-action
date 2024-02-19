@@ -1,5 +1,5 @@
 {
-    "ref":"refs/heads/testing-setup",
+    "ref":"refs/heads/unit-testing-brnahc",
     "organization": {
         "avatar_url": "https://avatars.githubusercontent.com/u/76759884?v=4",
         "description": "",
@@ -15,7 +15,7 @@
         "url": "https://api.github.com/orgs/spicyparrot"
     },
     "repository":{
-        "name": "pr-comment",
-        "full_name": "spicyparrot/pr-comment"
+        "name": "pr-comment-action",
+        "full_name": "spicyparrot/pr-comment-action"
     }
 }

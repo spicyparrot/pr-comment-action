@@ -1,0 +1,32 @@
+{
+    "files.exclude": {
+        "**/.git/hooks": false
+   },
+   "files.associations": {
+    "*.quke": "q"
+   },
+   "editor.tokenColorCustomizations": {
+    "textMateRules": [
+        {
+            "scope":"comment.line.attention",
+            "settings": {
+                "fontStyle": "bold",
+                "foreground": "#e70953c4"
+            }
+        },
+        {
+            "scope":"comment.line.todo",
+            "settings": {
+                "fontStyle": "bold",
+                "foreground": "#caeb0f"
+            }
+        }
+    ]
+    },
+    "jupyter.jupyterServerType": "remote",
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}

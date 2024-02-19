@@ -1,4 +1,4 @@
-name: 🧪 Testing
+name: 🧪 Unit Tests
 
 concurrency:
   group: ${{ github.ref_name }}
@@ -9,21 +9,26 @@ on:
     branches:    
     - '**'        # matches every branch
 
+#permissions:
+#  pull-requests: write
+    
 env:
   ENVIRONMENT: "ci"
+  GITHUB_TOKEN: ${{ github.token }}
+  GITHUB_EVENT_PATH: 
 
 jobs:
   test-code:
-    name: Unit Testing
+    name: 👩‍💻 Repo
     runs-on: ubuntu-latest
     steps:
       - name: 🛀 Checkout Self
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1
 
       - name: 🐍 Install Python
         uses: actions/setup-python@v4.7.1
         with:
-            python-version: '3.9'
+            python-version: '3.10'
 
       - name: 📦 Install Packages
         run: make deps.ci
@@ -32,8 +37,7 @@ jobs:
         run: make test.lint
         
       - name: 🏃‍♀️ Run Tests
-        run: |
-            make test.cov
+        run: make test.cov
 
       - name: 📠 SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -48,3 +52,48 @@ jobs:
           name: 👩‍🔬 Test Results
           path:  |
             ./tests/reports/*
+
+  test-containers:
+    name: 🐳 Docker
+    needs: [test-code]
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛀 Checkout Self as Local Action
+        uses: actions/checkout@v4.1.1
+        with:
+          path: local_comment_action
+
+      - name: 💌 Comment File
+        id: comment_file
+        run: |
+          COMMENT_PATH=$(pwd)/temp_output.txt
+          echo "| Test Case | Result " > $COMMENT_PATH
+          echo "| ----------- | ----------- |" >> $COMMENT_PATH
+          echo "| 🦜     |   🌶️   |" >> $COMMENT_PATH
+          echo "file_path=${COMMENT_PATH}" >> $GITHUB_OUTPUT
+
+      - name: 🐛 Debugging
+        run: |
+          cat ${GITHUB_EVENT_PATH}
+
+      - name: 💬 PR Comment on Self
+        uses: ./local_comment_action
+        with:
+          comment: "🤖 PR Comment Bot Test"
+          comment_path: ${{ steps.comment_file.outputs.file_path }}
+          comment_id: "Test Comment"
+
+  review:
+    name: Test Review
+    needs: [test-code, test-containers]
+    if: always()            
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🎌 Flag Test Failures
+        if: (needs.test-code.result !='success') || (needs.test-containers.result !='success')
+        uses: actions/github-script@v6.3.3
+        with:
+          script: core.setFailed("Unit tests are failing!❌😵☠")
+
+      - name: 🙌 Pass Unit Test
+        run: printf "${GREEN}Unit tests have passed! ✅"
