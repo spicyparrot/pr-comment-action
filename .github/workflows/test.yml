@@ -1,4 +1,4 @@
-name: 🧪 Testing
+name: 🧪 Unit Tests
 
 concurrency:
   group: ${{ github.ref_name }}
@@ -14,16 +14,11 @@ env:
 
 jobs:
   test-code:
-    name: Unit Testing
+    name: 👩‍💻 Repo
     runs-on: ubuntu-latest
     steps:
       - name: 🛀 Checkout Self
         uses: actions/checkout@v4.1.1
-
-      - name: 🛀 Checkout Self as Local Action
-        uses: actions/checkout@v4.1.1
-        with:
-          path: local_comment_action
 
       - name: 🐍 Install Python
         uses: actions/setup-python@v4.7.1
@@ -37,8 +32,30 @@ jobs:
         run: make test.lint
         
       - name: 🏃‍♀️ Run Tests
-        run: |
-          make test.cov
+        run: make test.cov
+
+      - name: 📠 SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: ⬆ Upload Reports
+        uses: actions/upload-artifact@v3.1.2
+        if: always()
+        with:
+          name: 👩‍🔬 Test Results
+          path:  |
+            ./tests/reports/*
+
+  test-containers:
+    name: 🐳 Docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛀 Checkout Self as Local Action
+        uses: actions/checkout@v4.1.1
+        with:
+          path: local_comment_action
 
       - name: 💌 Comment File
         id: comment_file
@@ -60,16 +77,17 @@ jobs:
           comment_path: ${{ steps.comment_file.outputs.file_path }}
           comment_id: "Test Comment"
 
-      - name: 📠 SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-      - name: ⬆ Upload Reports
-        uses: actions/upload-artifact@v3.1.2
-        if: always()
+  review:
+    name: Test Review
+    needs: [test-code, test-containers]
+    if: always()            
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🎌 Flag Test Failures
+        if: (needs.test-code.result !='success') || (needs.test-containers.result !='success')
+        uses: actions/github-script@v6.3.3
         with:
-          name: 👩‍🔬 Test Results
-          path:  |
-            ./tests/reports/*
+          script: core.setFailed("Unit tests are failing!❌😵☠")
+
+      - name: 🙌 Pass Unit Test
+        run: printf "${GREEN}Unit tests have passed! ✅"
