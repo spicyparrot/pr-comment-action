@@ -18,7 +18,7 @@ from main import parse_event_details, get_comment_tag, gen_comment, put_comment
 #=============================================================================#
 # Test files
 #=============================================================================#
-EVENT_PATH_VALID=f"{SCRIPT_DIRECTORY}/data/pr_event.json"
+EVENT_LOCAL_PATH_VALID=f"{SCRIPT_DIRECTORY}/data/pr_event.json"
 EVENT_PATH_INVALID=f"{SCRIPT_DIRECTORY}/data/non_pr_event.json"
 COMMENT_FILE = f"{SCRIPT_DIRECTORY}/data/comment.md"
 COMMENT = 'Well. Hello there'
@@ -28,7 +28,7 @@ COMMENT_ID = random.randint(0, 10000)
 # Component Tests
 #=============================================================================#
 def test_parse_event_details():
-    info = parse_event_details(EVENT_PATH_VALID)
+    info = parse_event_details(EVENT_LOCAL_PATH_VALID)
     good_type = isinstance(info,dict)
     kays_expected = ['org', 'branch_ref', 'branch_name', 'branch_label', 'repo_name', 'repo_full_name']
     good_keys = kays_expected == list(info.keys())
@@ -63,11 +63,16 @@ def test_parse_comment_text_and_file():
 #=============================================================================#
 github = Github(os.getenv('GITHUB_TOKEN'))
 
+# Local vs Branch (with PR) vs Trunk testing
+TEST_REF = os.getenv('GITHUB_BASE_REF','')
+TEST_BRANCH = TEST_REF.split('/')[-1]
+TEST_EVENT_PATH = EVENT_LOCAL_PATH_VALID if TEST_BRANCH in ['', 'trunk'] else os.environ['GITHUB_EVENT_PATH']
+
+
 def test_put_comment_new_text_only():
-    environment = os.getenv('ENVIRONMENT','')
-    event_path = EVENT_PATH_VALID if environment == '' else os.environ['GITHUB_EVENT_PATH']
+    event_path = TEST_EVENT_PATH
     comment_uid = str(uuid.uuid4())
-    comment1 = 'Well, hello there'
+    comment1 = 'Well; hello there'
     comment2 = 'Well. Hello there!'
     comment_file = ''
     # Create new comment
