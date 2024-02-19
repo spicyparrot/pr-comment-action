@@ -9,8 +9,13 @@ on:
     branches:    
     - '**'        # matches every branch
 
+#permissions:
+#  pull-requests: write
+    
 env:
   ENVIRONMENT: "ci"
+  GITHUB_TOKEN: ${{ github.token }}
+  GITHUB_EVENT_PATH: 
 
 jobs:
   test-code:
