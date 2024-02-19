@@ -36,9 +36,9 @@ def gen_comment(comment_uid, comment, comment_file):
     return new_comment
 
 
-def get_comment_id(pull_request,comment_uid):
+def get_pr_comment_id(pull_request, comment_uid):
     """
-    Get the comment id for 
+    Get the comment id for a comment on a given PR which contains our comment_uid value
     """
     comment_tag = get_comment_tag(comment_uid)
     comments = pull_request.get_issue_comments()
@@ -50,29 +50,29 @@ def get_comment_id(pull_request,comment_uid):
         text = comments[i].body
         if text.startswith(comment_tag):
             github_id = comments[i].id
-            print("Duplicate comment found - " + str(comment_id))
+            print("Duplicate comment found - " + str(comment_uid))
 
     return github_id
 
 
-def get_branch_pr(repo_name:str, token:str):
+def get_branch_pr(event_details:dict):
     """
     Return the PR objeects associated with the branch
     """
+    repo_name = event_details['repo_full_name']
     print(f"Getting associated PRs: {repo_name}")
-    gh = Github(token)
-    repo = gh.get_repo(repo_name)
-    prs = repo.get_pulls(state='open', sort='created', head=branch_label)
-    print(f"Associated PR: {len(prs)}")
+    repo = github.get_repo(repo_name)
+    prs = repo.get_pulls(state='open', sort='created', head=event_details['branch_label'])
+    print(f"Associated PRs: {prs.totalCount}")
     ### Only able comment if valid pull request is available
     if prs.totalCount == 0:
-        print("No PR found for branch - " + str(branch_label))
+        print("No PR found for branch - " + str(event_details['branch_label']))
         sys.exit()
     pr = prs[0]
     return pr
 
 
-def get_event_info(event_path):
+def parse_event_details(event_path):
     """
     Parse the github event file ($GITHUB_EVENT_PATH)
     """
@@ -94,19 +94,20 @@ def get_event_info(event_path):
     return info
 
 
-def put_comment(token:str , event_path:str, comment_uid:str, comment:str, comment_file:str)-> bool:
+def put_comment(event_path:str, comment_uid:str, comment:str, comment_file:str = '')-> bool:
     """
 
     """
-    info = get_event_info(event_path)
-    pr = get_branch_pr(info['repo_name'],token)
-    id = get_comment_id(pr,comment_uid)
+    event_details = parse_event_details(event_path)
+    pr = get_branch_pr(event_details)
+    gh_id = get_pr_comment_id(pr, comment_uid)
     new_comment = gen_comment(comment_uid, comment, comment_file)
-    if id==0:
+    if gh_id==0:
         print("No existing comment found. Adding new comment")
         pr.create_issue_comment(new_comment)
     else:
         print("Editing existing comment - " + str(id))
+        repo = github.get_repo(event_details['repo_full_name'])
         issue = repo.get_issue(pr.number)
         existing_comment = issue.get_comment(id)
         existing_comment.edit(new_comment)
@@ -124,20 +125,22 @@ def github_event_validation():
     return event
 
 
-def github_action_handler():
-    # Get inputs from envars (GitHub converts all inputs into INPUT_<UPPER CASE OF INPUT>)
-    event_path = os.getenv('GITHUB_EVENT_PATH')
-    repo = os.getenv("GITHUB_REPOSITORY")
-    token = os.getenv('GITHUB_TOKEN')
-    comment = os.getenv("INPUT_COMMENT")
-    comment_uid = os.getenv("INPUT_COMMENT_ID")
-    comment_path = os.getenv("INPUT_COMMENT_PATH")
+def github_action_handler(event_path:str, comment:str, comment_uid:str = '', comment_file:str = ''):
+    # TODO - validation
+
     # Create comment
-    put_comment(token, event_path, comment_uid, comment, comment_path)
+    put_comment(event_path, comment_uid, comment, comment_file=comment_file)
     return True
 
 #=============================================================================#
 # Script entrypoint
 #=============================================================================#
+github = Github(os.getenv('GITHUB_TOKEN'))
+
 if __name__ == "__main__":
-    github_action_handler()
+    # Get inputs from envars (GitHub converts all inputs into INPUT_<UPPER CASE OF INPUT>)
+    event_path = os.getenv('GITHUB_EVENT_PATH')
+    comment = os.getenv("INPUT_COMMENT")
+    comment_uid = os.getenv("INPUT_COMMENT_ID")
+    comment_path = os.getenv("INPUT_COMMENT_PATH")
+    github_action_handler(event_path, comment, comment_uid, comment_file=comment_path)
