@@ -64,7 +64,8 @@ def test_parse_comment_text_and_file():
 github = Github(os.getenv('GITHUB_TOKEN'))
 
 def test_put_comment_new_text_only():
-    event_path = EVENT_PATH_VALID
+    environment = os.getenv('ENVIRONMENT','')
+    event_path = os.getenv('GITHUB_EVENT_PATH','') if environment == 'ci' else EVENT_PATH_VALID
     comment_uid = str(uuid.uuid4())
     comment1 = 'Well, hello there'
     comment2 = 'Well. Hello there!'
