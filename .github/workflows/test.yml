@@ -50,6 +50,7 @@ jobs:
 
   test-containers:
     name: 🐳 Docker
+    needs: [test-code]
     runs-on: ubuntu-latest
     steps:
       - name: 🛀 Checkout Self as Local Action

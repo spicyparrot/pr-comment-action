@@ -68,9 +68,10 @@ def test_put_comment_new_text_only():
     comment_uid = str(uuid.uuid4())
     comment1 = 'Well, hello there'
     comment2 = 'Well. Hello there!'
+    comment_file = ''
     # Create new comment
-    result1 = put_comment(event_path, comment_uid, comment1, '')
+    result1 = put_comment(event_path, comment_uid, comment1, comment_file)
     # Update existing comment
-    result2 = put_comment(event_path, comment_uid, comment2, '')
+    result2 = put_comment(event_path, comment_uid, comment2, comment_file)
     assert result1 is True       ,"Comment not added"
     assert result2 is True       ,"Comment not updated"

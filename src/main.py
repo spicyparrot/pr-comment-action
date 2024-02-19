@@ -106,10 +106,10 @@ def put_comment(event_path:str, comment_uid:str, comment:str, comment_file:str =
         print("No existing comment found. Adding new comment")
         pr.create_issue_comment(new_comment)
     else:
-        print("Editing existing comment - " + str(id))
+        print(f"Editing existing comment - '{str(gh_id)}'")
         repo = github.get_repo(event_details['repo_full_name'])
         issue = repo.get_issue(pr.number)
-        existing_comment = issue.get_comment(id)
+        existing_comment = issue.get_comment(gh_id)
         existing_comment.edit(new_comment)
     return True
 
