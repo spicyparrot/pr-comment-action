@@ -74,7 +74,7 @@ jobs:
       - name: 💬 Comment Only
         uses: ./local_comment_action
         with:
-          comment: "🥼 Tests Results"
+          comment: "🎉 100 tests ran successfully!"
 
       - name: 💬 Comment File
         uses: ./local_comment_action

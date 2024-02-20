@@ -39,7 +39,7 @@ jobs:
       - name: 💬 PR Comment
         uses: spicyparrot/pr-comment-action@v1.0.0
         with:
-          comment: "🥼 Tests Results"
+          comment: "🎉 100 tests ran successfully!"
 ```
 
 Github comment ![comment_only](docs/screenshots/comment_only.png)
