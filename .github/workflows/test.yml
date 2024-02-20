@@ -81,6 +81,7 @@ jobs:
         with:
           comment: "🥼 Test Results"
           comment_path: ${{ steps.comment_file.outputs.file_path }}
+          comment_id: "comment_file"
 
   review:
     name: Test Review
