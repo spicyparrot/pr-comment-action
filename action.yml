@@ -1,8 +1,8 @@
-name: '💬 PR Comment'
+name: 'Unique PR Comment'
 description: 'Adds a comment to a PR and ensures no duplicate messages'
 
 branding:
-  icon: "alert-circle"
+  icon: "message-circle"
   color: "purple"
 inputs:
   comment:
