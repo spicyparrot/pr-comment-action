@@ -1,5 +1,6 @@
 # Local code execution files
 node_modules
+.venv
 
 !.github/actions/build
 

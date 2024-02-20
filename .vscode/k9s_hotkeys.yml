@@ -1,0 +1,38 @@
+# vim ~/.config/k9s/hotkey.yml
+hotKey:
+  f1:
+    shortCut: F1
+    description: View pods
+    command: pods
+  shift-d:
+    shortCut: Shift + D
+    description: View deployments
+    command: dp
+  f3:
+    shortCut: F3
+    description: View statefulsets
+    command: sts
+  f4:
+    shortCut: F4
+    description: View services
+    command: service
+  f5:
+    shortCut: F5
+    description: View ingresses
+    command: ingress
+  f6:
+    shortCut: F6
+    description: View jobs
+    command: jobs
+  f7:
+    shortCut: F7
+    description: View namespaces
+    command: namespaces
+  f8:
+    shortCut: F8
+    description: View horizontal pod autoscalers
+    command: hpa
+  f9:
+    shortCut: F9
+    description: View configmaps
+    command: configmaps

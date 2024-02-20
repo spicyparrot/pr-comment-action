@@ -7,16 +7,20 @@ env.local: deps.code
 	env/bin/pip install -U pip wheel setuptools
 	env/bin/pip install -r $(TEST_SOURCE_DIR)/requirements.txt
 
-deps.local: test.hooks
+hooks.commit:
+	cp .github/hooks/pre-commit .git/hooks/pre-commit
+	chmod +x .git/hooks/pre-commit
+
+deps.local: hooks.commit
 	mkdir -p $(TEST_REPORTS_DIR)
-	pip install -r $(TEST_SOURCE_DIR)/requirements.txt
+	pip install --quiet -r $(TEST_SOURCE_DIR)/requirements.txt
 
 deps.ci: 
 	mkdir -p $(TEST_REPORTS_DIR)
-	pip install -r $(TEST_SOURCE_DIR)/requirements.txt
+	pip install --quiet -r $(TEST_SOURCE_DIR)/requirements.txt
 	
 deps.test:
-	pip install \
+	pip install --quiet \
 		pytest==7.4.0 \
 		pylint==3.0.2 \
 		pylint-json2html==0.5.0 \
@@ -25,10 +29,6 @@ deps.test:
 		pytest-sugar \
 		pytest-md \
 		pytest-emoji
-
-test.hooks:
-	cp .github/hooks/pre-commit .git/hooks/pre-commit
-	chmod +x .git/hooks/pre-commit
 
 test.lint: deps.test
 	pylint $(TEST_SOURCE_DIR) \

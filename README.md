@@ -1,9 +1,9 @@
 # Unique PR Comments
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=spicyparrot_pr-comment&metric=alert_status&token=c558b80e135ef75abc1b4406558c79de9c2caf59)](https://sonarcloud.io/summary/new_code?id=spicyparrot_pr-comment)
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=spicyparrot_pr-comment&metric=ncloc&token=c558b80e135ef75abc1b4406558c79de9c2caf59)](https://sonarcloud.io/summary/new_code?id=spicyparrot_pr-comment)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=spicyparrot_pr-comment&metric=coverage&token=c558b80e135ef75abc1b4406558c79de9c2caf59)](https://sonarcloud.io/summary/new_code?id=spicyparrot_pr-comment)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=spicyparrot_pr-comment&metric=security_rating&token=c558b80e135ef75abc1b4406558c79de9c2caf59)](https://sonarcloud.io/summary/new_code?id=spicyparrot_pr-comment)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=spicyparrot_pr-comment&metric=vulnerabilities&token=c558b80e135ef75abc1b4406558c79de9c2caf59)](https://sonarcloud.io/summary/new_code?id=spicyparrot_pr-comment)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=spicyparrot_pr-comment-action&metric=alert_status&token=2d2eecc67d1ffda65dc694508685014dae56285f)](https://sonarcloud.io/summary/new_code?id=spicyparrot_pr-comment-action)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=spicyparrot_pr-comment-action&metric=ncloc&token=2d2eecc67d1ffda65dc694508685014dae56285f)](https://sonarcloud.io/summary/new_code?id=spicyparrot_pr-comment-action)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=spicyparrot_pr-comment-action&metric=coverage&token=2d2eecc67d1ffda65dc694508685014dae56285f)](https://sonarcloud.io/summary/new_code?id=spicyparrot_pr-comment-action)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=spicyparrot_pr-comment-action&metric=security_rating&token=2d2eecc67d1ffda65dc694508685014dae56285f)](https://sonarcloud.io/summary/new_code?id=spicyparrot_pr-comment-action)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=spicyparrot_pr-comment-action&metric=vulnerabilities&token=2d2eecc67d1ffda65dc694508685014dae56285f)](https://sonarcloud.io/summary/new_code?id=spicyparrot_pr-comment-action)
 
 Adds comments to PRs and Removes Duplicates
