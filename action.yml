@@ -1,4 +1,4 @@
-name: 'Unique PR Comment'
+name: 'PR Comment No Dupes'
 description: 'Adds a comment to a PR and ensures no duplicate messages'
 
 branding:

@@ -1,4 +1,4 @@
-# 💬 Unique PR Comments
+# PR Comment No Dupes
 
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=spicyparrot_pr-comment-action&metric=security_rating&token=2d2eecc67d1ffda65dc694508685014dae56285f)](https://sonarcloud.io/summary/new_code?id=spicyparrot_pr-comment-action)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=spicyparrot_pr-comment-action&metric=vulnerabilities&token=2d2eecc67d1ffda65dc694508685014dae56285f)](https://sonarcloud.io/summary/new_code?id=spicyparrot_pr-comment-action)
