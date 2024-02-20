@@ -9,7 +9,7 @@
 
 This is a pipeline action to add comments to pull requests and allows for editing previous comments to help keep PRs tidy!
 
-This is useful during testing to leave summaries about the latest test results in a visble location
+This is useful during for e.g. testing to leave summaries about the latest results in a visble location without adding 1 comment per run.
 
 ## Features
 
