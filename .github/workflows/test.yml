@@ -71,12 +71,16 @@ jobs:
           echo "| 🦜     |   🌶️   |" >> $COMMENT_PATH
           echo "file_path=${COMMENT_PATH}" >> $GITHUB_OUTPUT
 
-      - name: 💬 PR Comment on Self
+      - name: 💬 Comment Only
         uses: ./local_comment_action
         with:
-          comment: "🤖 PR Comment Bot Test"
+          comment: "🥼 Tests Results"
+
+      - name: 💬 Comment File
+        uses: ./local_comment_action
+        with:
+          comment: "🥼 Test Results"
           comment_path: ${{ steps.comment_file.outputs.file_path }}
-          comment_id: "Test Comment"
 
   review:
     name: Test Review
