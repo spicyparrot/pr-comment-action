@@ -71,10 +71,6 @@ jobs:
           echo "| 🦜     |   🌶️   |" >> $COMMENT_PATH
           echo "file_path=${COMMENT_PATH}" >> $GITHUB_OUTPUT
 
-      - name: 🐛 Debugging
-        run: |
-          cat ${GITHUB_EVENT_PATH}
-
       - name: 💬 PR Comment on Self
         uses: ./local_comment_action
         with:
