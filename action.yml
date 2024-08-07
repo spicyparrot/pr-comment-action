@@ -1,5 +1,5 @@
-name: 'PR Comment No Dupes'
-description: 'Adds a comment to a PR and ensures no duplicate messages'
+name: 'PR Comment - Create & Edit'
+description: 'Adds a comment to a PR and allows for editing of existing comments using a comment id value'
 
 branding:
   icon: "message-circle"
